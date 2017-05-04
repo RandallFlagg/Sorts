@@ -26,6 +26,18 @@
 ונפתחות אפשרות בחירת סוג המיון ומהירות הצגתו
 input המערך עשוי מתאי
 */
+
+//let arr;
+
+function Debugger(toDebug) {
+    if (toDebug)
+        debugger;
+}
+
+function disableElem(elemId, disabled) {
+    document.getElementById(elemId).disabled = disabled;
+}
+
 function makeArr() {
     // חסימת הגדרות מאפייני מערך ופתיחת הגדרות מאפייני מיון
     disableElem("fieldset1", true);
@@ -48,7 +60,9 @@ function makeArr() {
         input.type = "number"; // הקלט מסוג מספר
 
         //input.onchange = 
-        input.onkeyup = function () { this.style.width = ((this.value.length + 3) * 8) + 'px' }; // שינוי אוטומטי של רוחב התא בהתאם להגדלת/הקטנת הערך ע"י החיצים או בהקלדה
+        input.onkeyup = function () {
+            this.style.width = ((this.value.length + 3) * 8) + "px"; // שינוי אוטומטי של רוחב התא בהתאם להגדלת/הקטנת הערך ע"י החיצים או בהקלדה
+        };
 
         if (document.getElementById("random").checked) {
             let min = Number(document.getElementById("min").value); // ערך מינימלי להגרלה
@@ -129,6 +143,7 @@ function sort(arr) {
 }
 
 // הסבר של כל מיון
+//TODO: Take this from template
 function sortExplanation() {
 	document.getElementById("bubbleExplanation").style.display = "none";
 	document.getElementById("selectionExplanation").style.display = "none";
@@ -293,7 +308,7 @@ function onArrow(elem) {
 	let arrI = document.getElementById("arr");
 	let arrow = document.createElement("div");
 	arrow.id = "arrow";
-	arrow.innerHTML = String.fromCodePoint(0x1F847);
+    arrow.innerHTML = String.fromCodePoint(0x1F847);//"\u21AA";//">";
 	arrow.style = "-webkit-text-fill-color: Lime; -webkit-text-stroke-width: 1px; font-size: 21px;";
 
 	arrow.style.position = "absolute";
@@ -565,6 +580,7 @@ let old = false;
     elem2.value = t;
 
     
+        //TODO: Move the actual cells without making a copy
     
     if (old) {
 
@@ -689,47 +705,45 @@ let old = false;
 		elem1.style.top = point.y + "px";
 		
 	
-		if (it == 0)
-		{
+        if (it == 0) {
 			elem1.style.transition = "";
 			elem2.style.transition = "";
 			elem1.style.position = "relative";
 			elem2.style.position = "relative";
 		}
-		if (it == 1)
-		{
-		}
-		
-		it++;
-			
-	
-		// לאחר סיום האנימציה
-		
-		if (point.y == 1)
-		{
-			// האטת תזוזת התאים שבין התאים המוחלפים
-			elem1.style.transition = "all 1s";
-			elem2.style.transition = "all 1s";
-			
-			// החזרת כל תא למקומו
-			elem1.style.position = "initial";
-			elem2.style.position = "initial";
-				
-			// החלפת הערכים
-			let tmp;
-		//	tmp = elem1;
-		//	elem1 = elem2;
-		//	elem2 = tmp;
-			
-			tmp = elem1.value;
-			elem1.value = elem2.value;
-			elem2.value = tmp;
-		
-			// החלפה בין האורכים
-			tmp = elem1.style.width;
-			elem1.style.width = elem2.style.width;
-			elem2.style.width = tmp;
-		}
+        if (it == 1) {
+            //TODO: Can this be deleted?
+        }
+
+        it++;
+
+
+        // לאחר סיום האנימציה
+
+        if (point.y == 1) {
+            // האטת תזוזת התאים שבין התאים המוחלפים
+            elem1.style.transition = "all 1s";
+            elem2.style.transition = "all 1s";
+
+            // החזרת כל תא למקומו
+            elem1.style.position = "initial";
+            elem2.style.position = "initial";
+
+            // החלפת הערכים
+            let tmp;
+            //	tmp = elem1;
+            //	elem1 = elem2;
+            //	elem2 = tmp;
+
+            tmp = elem1.value;
+            elem1.value = elem2.value;
+            elem2.value = tmp;
+
+            // החלפה בין האורכים
+            tmp = elem1.style.width;
+            elem1.style.width = elem2.style.width;
+            elem2.style.width = tmp;
+        }
     });
 
     curve2.animate(2, function (point) {
